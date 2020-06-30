@@ -62,7 +62,7 @@ git clone https://github.com/derv82/wifite /opt/Wifite
 git clone https://github.com/sophron/wifiphisher.git /opt/WifiPhisher
 git clone https://github.com/maurosoria/dirsearch.git /opt/dirsearch
 git clone https://github.com/SolomonSklash/htbenum.git /opt/htbenum
-
+wget https://download3.vmware.com/software/wkst/file/VMware-Workstation-Full-14.0.0-6661328.x86_64.bundle
 
 cd /opt/the-backdoor-factory && ./install.sh
 change

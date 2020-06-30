@@ -49,6 +49,7 @@ if [ $1 ];then
 	Name=$2
 	mkdir $Name
 	cd $Name
+	touch $IP
 else
 	space
 	echo -e "${CYAN}The OSCP Enumeration Tool will conduct specific nmap scans on any specified target.${NC}"
@@ -162,7 +163,7 @@ read ans
 	if [ "$ans" = "yes" ] || [ "$ans" = "YES" ] || [ "$ans" = "y" ] || [ "$ans" = "Y" ] || [ "$ans" = "Yes" ]
 	then
 	space
-	echo -e "${CYAN}Conducting and FTP scan on $Name...${NC}" 
+	echo -e "${CYAN}Conducting an FTP scan on $Name...${NC}" 
 	nmap --script ftp* -p21 $IP > ftp.txt
 	echo -e "${CYAN}[+] FTP Scan for $Name is complete${NC}!"
 	else
@@ -171,7 +172,7 @@ fi
 
 break
 
-echo -e "${GREEN}Do you want to run all Website Scripts against $Name? (Dirb, Gobuster and Nikto)${NC}"
+echo -e "${GREEN}Do you want to run all Website Scripts against $Name?${NC}}"
 read ans
 	if [ "$ans" = "yes" ] || [ "$ans" = "YES" ] || [ "$ans" = "y" ] || [ "$ans" = "Y" ] || [ "$ans" = "Yes" ]
 	then
