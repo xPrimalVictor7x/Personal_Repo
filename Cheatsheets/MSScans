@@ -1,0 +1,33 @@
+					Metasploitable Scans
+#Running Nmap from MSFconsole
+msf > db_nmap
+
+#Advanced Nmap Scanning: TCP Idle Scan
+msf > use auxiliary/scanner/ip/ipidseq
+
+#Port Scanning with Metasploit
+msf > use scanner/portscan/syn
+
+#Server Message Block Scanning
+msf > use scanner/smb/smb_version
+
+#Validating SMB Logins
+msf > use auxiliary/scanner/smb/smb_login
+set RHOSTS
+set SMBUser Administrator
+set SMBPass s3cr3t
+
+#Hunting for Poorly Configured Microsoft SQL Servers
+msf > use scanner/mssql/mssql_ping
+
+#SSH Server Scanning
+msf > use scanner/ssh/ssh_version
+
+#FTP Scanning
+msf > use scanner/ftp/ftp_version
+
+#Simple Network Management Protocol Sweeping
+msf > use use scanner/snmp/snmp_login
+
+#Scanning for Open Virtual Network Computing Authentication
+msf > use auxiliary/scanner/vnc/vnc_none_auth
