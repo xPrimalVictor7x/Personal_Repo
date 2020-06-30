@@ -177,10 +177,12 @@ read ans
 	then
 	space
 	echo -e "${CYAN}Conducting dirb scan on $Name...${NC}" 
-	dirb http://$IP/
+	dirb http://$IP/ | tee dirb.txt
 	echo -e "${CYAN}[+] Dirb scan on $Name is complete${NC}!"
 	break
-
+	nikto $IP | tee nikto.txt
+	break
+	gobuster dir -u http://$IP -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -t 50 -k | tee gobuster.txt
 	else
     space
 	echo -e ${CYAN}"Okay, goodbye!"${NC}
