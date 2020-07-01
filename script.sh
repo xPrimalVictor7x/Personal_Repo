@@ -1,4 +1,4 @@
-!#/bin/bash
+#!/bin/bash
 
 #This is a quick script to add the files/programs/folders/directories into the GitHub repo
 
