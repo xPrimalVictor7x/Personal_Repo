@@ -44,26 +44,31 @@ function break() {
 
 if [ $1 ];then
 	space
-	echo -e "${CYAN}[*] Starting Recon on $2 at $1...${NC}"
+	echo -e "${CYAN}[+] Starting Recon on $2 at $1...${NC}"
 	IP=$1
 	Name=$2
-	mkdir $Name
-	cd $Name
+    dir_name=$Name
+	mkdir $dir_name
+	cd $dir_name/
 	touch $IP
 else
 	space
-	echo -e "${CYAN}The OSCP Enumeration Tool will conduct specific nmap scans on any specified target.${NC}"
+	echo -e "${CYAN}The OSCP Enumeration Tool will conduct different scans on any specified target.${NC}"
 	echo -e "${CYAN}This tool was created with the intent to be the first Enumeration scan against a target.${NC}"
-	echo -e "${CYAN}The output will not all display on screen but will be in the Host Name Directory that is created upon execution.${NC}"
+	echo -e "${CYAN}The output will not all display on screen but will be in the Host Name Directory that is created upon execution of the script.${NC}"
 	space
 	echo -e "${CYAN}Usage: ./OSCPEnum.sh <IP> <Host Name>${NC}"
 	space
 	exit 0
 fi
 
+#######################################################################################################
+########################################## Iniital Scans ##############################################
+#######################################################################################################
+
 # Quick TCP Scan
 space
-echo -e "${GREEN}Conducting a Quick TCP Scan to get started.${NC}"
+echo -e "${GREEN}Checking to see what ports are open on $Name.${NC}"
 space
 nmap -Pn $IP | tee QuickTCP.txt
 space
@@ -72,72 +77,73 @@ echo -e "${CYAN}[+] Quick TCP Recon on $Name Done!! Don't forget: ENUMERATE EVER
 break
 
 # Initial Scan, More thorough than quick scan
-echo -e "${GREEN}Conducting an Initial Scan on $Name.${NC}"
+echo -e "${GREEN}Conducting a Deeper Scan on $Name.${NC}"
 space
-nmap -sS -sC -sV -O -T4 -Pn -T4 $IP > Initial.txt
-echo -e "${CYAN}[+] Initial Recon on $Name Complete!!${NC}!"
+nmap -sC -sV -O -T4 -Pn -T4 $IP > Initial.txt
+echo -e "${CYAN}[+] Deeper Scan on $Name Complete!!${NC}!"
 
 break
 
 # In depth website crawler
-echo -e "${GREEN}Conducting a Web Crawl on port 80 and 443 for $Name.${NC}"
+echo -e "${GREEN}Checking to see if $Name has a webserver.${NC}"
 space
-nmap --script http-enum.nse,dns-brute.nse -Pn $IP > http.txt
+nmap -p80,8080,443 -sV -sC -Pn $IP > http.txt
 echo -e "${CYAN}[+] Website Recon on $Name Complete!!${NC}!"
 
 break
 
-# All out exploits/vulnerabilities scan
-echo -e "${GREEN}Do you want to scan for Exploits against $Name? (This will most certainly take awhile)${NC}"
-read ans 
-	if [ "$ans" = "yes" ] || [ "$ans" = "YES" ] || [ "$ans" = "y" ] || [ "$ans" = "Y" ] || [ "$ans" = "Yes" ]
-	then
-    space
-	echo -e "${CYAN}Scanning $Name for exploits...${NC}" 
-    nmap -p- --script=vuln,exploit -T4 -sC -Pn $IP > Goodies.txt
-	echo -e "${CYAN}[+] Exploits scan for $Name is finally complete!!!${NC}!"
-	else
-	echo "Lets move on"
-fi
+#######################################################################################################
+######################################### Web Crawler #################################################
+#######################################################################################################
 
-break
+echo -e "${GREEN}If $Name Has a Web Server Running, it's Advised to conduct a Web Crawl${NC}}"
 
-# The Big ONE; scans all the things
-echo -e "${GREEN}Do you want to run a Big Nmap Scan? (May take awhile)${NC}"
+space
+
+echo -e "${GREEN}Do You Want To Run a Dirb Scan Against $Name?${NC}}"
 read ans
 	if [ "$ans" = "yes" ] || [ "$ans" = "YES" ] || [ "$ans" = "y" ] || [ "$ans" = "Y" ] || [ "$ans" = "Yes" ]
 	then
 	space
-	echo -e "${CYAN}Conducting a Big Scan on $Name... This may take awhile.${NC}" 
-    nmap -sS -sC -sV -O -A -r -T4 -p- -Pn $IP > BigScan.txt
-	echo -e "${CYAN}[+] Big Recon scan on $IP is complete${NC}!"
+	echo -e "${CYAN}Conducting dirb scan on $Name...${NC}" 
+	dirb http://$IP/ -R | tee dirb.txt
+	echo -e "${CYAN}[+] Dirb scan on $Name is complete${NC}!"
 	else
-	echo "Lets move on"
+	space
+	echo e ${CYAN}"Okay, Lets move on!"${NC}
 fi
 
 break
 
-# Gives the user an options to continue with other scans
-echo -e ${GREEN}"Initial Scripts are done; do you wish to continue with other Scans/Scripts?"${NC}
-space
-read resp
-    if [[ $resp = Y ]] || [[ $resp = Yes ]] || [[ $resp = YES ]] || [[ $resp = yes ]] || [[ $resp = y ]]
-	then 
-    space
-	echo -e ${CYAN}"Okay, lets continue then!"${NC}
+echo -e "${GREEN}Do You Want To Run dirsearch Against $Name? (Answer is probaly HELL YEAH)${NC}}"
+read ans
+	if [ "$ans" = "yes" ] || [ "$ans" = "YES" ] || [ "$ans" = "y" ] || [ "$ans" = "Y" ] || [ "$ans" = "Yes" ]
+	then
+	space
+	echo -e "${CYAN}Running Dirsearch against $Name...${NC}" 
+	python3 /opt/Scanning/dirsearch/dirsearch.py -u 10.12.1.17 -e php,html,js | tee dirsearch.txt	
+	echo -e "${CYAN}[+] Dirsearch on $Name is complete${NC}!"
+	else
+	space
+	echo e ${CYAN}"Okay, Lets move on!"${NC}
+fi
+
+break
+
+echo -e "${GREEN}Do You Want To Run a Nikto Scan Against $Name?${NC}}"
+read ans
+	if [ "$ans" = "yes" ] || [ "$ans" = "YES" ] || [ "$ans" = "y" ] || [ "$ans" = "Y" ] || [ "$ans" = "Yes" ]
+	then
+	space
+	nikto -t 4 -timeout 5 -h $IP | tee nikto.txt
+	echo -e "${CYAN}[+] Dirb scan on $Name is complete${NC}!"
 	else
     space
-	echo -e ${CYAN}"Okay, goodbye!"${NC}
-    space
-    echo -e ${CYAN}"End of OSCP Enumeration Script; thanks for using!"${NC}
-    space
-	exit
+	echo -e ${CYAN}"Okay, Lets Move On!"${NC}
 fi
 
 #######################################################################################################
-#######################################################################################################
-########################################### Extras ####################################################
-#######################################################################################################
+####################################### Specific Scans ################################################
 #######################################################################################################
 
 break
@@ -153,7 +159,7 @@ read ans
 	echo -e "${CYAN}[+] SMB Recon Scan for $Name is complete${NC}!"
 	else
 	space
-	echo "Lets move on"
+	echo -e ${CYAN}"Okay, Lets Move On!"${NC}
 fi
 
 break
@@ -167,29 +173,59 @@ read ans
 	nmap --script ftp* -p21 $IP > ftp.txt
 	echo -e "${CYAN}[+] FTP Scan for $Name is complete${NC}!"
 	else
-	echo "Lets Move on"
+	echo -e ${CYAN}"Okay, Lets Move On!"${NC}
 fi
 
 break
 
-echo -e "${GREEN}Do you want to run all Website Scripts against $Name?${NC}}"
+#######################################################################################################
+########################################## Deeper Scans ###############################################
+#######################################################################################################
+
+# All out exploits/vulnerabilities scan
+echo -e "${GREEN}Do you want to scan for Exploits against $Name? (This will most certainly take awhile)${NC}"
+read ans 
+	if [ "$ans" = "yes" ] || [ "$ans" = "YES" ] || [ "$ans" = "y" ] || [ "$ans" = "Y" ] || [ "$ans" = "Yes" ]
+	then
+    space
+	echo -e "${CYAN}Scanning $Name for exploits...${NC}" 
+    nmap -p- --script=vuln,exploit -T4 -sC -Pn $IP > Goodies.txt
+	echo -e "${CYAN}[+] Exploits scan for $Name is finally complete!!!${NC}!"
+	else
+	echo -e ${CYAN}"Okay, Lets Move On!"${NC}
+fi
+
+break
+
+# The Big ONE; scans all the things
+echo -e "${GREEN}Do you want to run a Big Nmap Scan? (May take awhile)${NC}"
 read ans
 	if [ "$ans" = "yes" ] || [ "$ans" = "YES" ] || [ "$ans" = "y" ] || [ "$ans" = "Y" ] || [ "$ans" = "Yes" ]
 	then
 	space
-	echo -e "${CYAN}Conducting dirb scan on $Name...${NC}" 
-	dirb http://$IP/ | tee dirb.txt
-	echo -e "${CYAN}[+] Dirb scan on $Name is complete${NC}!"
-	break
-	nikto $IP | tee nikto.txt
-	break
-	gobuster dir -u http://$IP -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -t 50 -k | tee gobuster.txt
+	echo -e "${CYAN}Conducting a Big Scan on $Name... This may take awhile.${NC}" 
+    nmap -sS -sC -sV -O -A -r -T4 -p- -Pn $IP > BigScan.txt
+	echo -e "${CYAN}[+] Big Recon scan on $IP is complete${NC}!"
 	else
+	echo -e ${CYAN}"Okay, Lets Move On!"${NC}
+fi
+
+break
+
+# Gives the user an options to continue with other scans
+echo -e ${GREEN}"Initial Scripts are done; do you wish to continue with other Scans/Scripts?"${NC}
+space
+read resp
+    if [[ $resp = Y ]] || [[ $resp = Yes ]] || [[ $resp = YES ]] || [[ $resp = yes ]] || [[ $resp = y ]]
+	then 
     space
-	echo -e ${CYAN}"Okay, goodbye!"${NC}
+	echo -e ${CYAN}"Okay, lets continue then!"${NC}
+	else
     space
     echo -e ${CYAN}"End of OSCP Enumeration Script; thanks for using!"${NC}
     space
 	exit
 fi
-exit
+exit #end of script
+
+
