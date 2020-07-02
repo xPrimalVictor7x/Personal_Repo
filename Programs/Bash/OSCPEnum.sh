@@ -106,7 +106,7 @@ read ans
 	then
 	space
 	echo -e "${CYAN}Conducting dirb scan on $Name...${NC}" 
-	dirb http://$IP/ -R | tee dirb.txt
+	dirb http://$IP/ | tee dirb.txt
 	echo -e "${CYAN}[+] Dirb scan on $Name is complete${NC}!"
 	else
 	space
@@ -121,7 +121,7 @@ read ans
 	then
 	space
 	echo -e "${CYAN}Running Dirsearch against $Name...${NC}" 
-	python3 /opt/Scanning/dirsearch/dirsearch.py -u 10.12.1.17 -e php,html,js | tee dirsearch.txt	
+	python3 /opt/Scanning/dirsearch/dirsearch.py -u $IP -e php,html,js | tee dirsearch.txt	
 	echo -e "${CYAN}[+] Dirsearch on $Name is complete${NC}!"
 	else
 	space
@@ -130,12 +130,12 @@ fi
 
 break
 
-echo -e "${GREEN}Do You Want To Run a Nikto Scan Against $Name?${NC}}"
+echo -e "${GREEN}Do You Want To Run a Nikto Scan Against $Name?${NC}"
 read ans
 	if [ "$ans" = "yes" ] || [ "$ans" = "YES" ] || [ "$ans" = "y" ] || [ "$ans" = "Y" ] || [ "$ans" = "Yes" ]
 	then
 	space
-	nikto -t 4 -timeout 5 -h $IP | tee nikto.txt
+	nikto -t 4 -h $IP | tee nikto.txt
 	echo -e "${CYAN}[+] Dirb scan on $Name is complete${NC}!"
 	else
     space
@@ -170,7 +170,7 @@ read ans
 	then
 	space
 	echo -e "${CYAN}Conducting an FTP scan on $Name...${NC}" 
-	nmap --script ftp* -p21 $IP > ftp.txt
+	nmap --script ftp* $IP > ftp.txt
 	echo -e "${CYAN}[+] FTP Scan for $Name is complete${NC}!"
 	else
 	echo -e ${CYAN}"Okay, Lets Move On!"${NC}
