@@ -110,7 +110,7 @@ read ans
 	echo -e "${CYAN}[+] Dirb scan on $Name is complete${NC}!"
 	else
 	space
-	echo e ${CYAN}"Okay, Lets move on!"${NC}
+	echo -e "${CYAN}Okay, Lets Move On!${NC}"
 fi
 
 break
@@ -125,7 +125,7 @@ read ans
 	echo -e "${CYAN}[+] Dirsearch on $Name is complete${NC}!"
 	else
 	space
-	echo e ${CYAN}"Okay, Lets move on!"${NC}
+	echo -e "${CYAN}Okay, Lets Move On!${NC}"
 fi
 
 break
@@ -139,7 +139,7 @@ read ans
 	echo -e "${CYAN}[+] Dirb scan on $Name is complete${NC}!"
 	else
     space
-	echo -e ${CYAN}"Okay, Lets Move On!"${NC}
+	echo -e "${CYAN}Okay, Lets Move On!${NC}"
 fi
 
 #######################################################################################################
@@ -155,11 +155,11 @@ read ans
 	then
 	space
 	echo -e "${CYAN}Conducting UDP Scan for $Name at $IP...${NC}" 
-    nmap -p 445 -vv -Pn --script=smb-os-discovery,smb-vuln-cve2009-3103.nse,smb-vuln-ms06-025.nse,smb-vuln-ms07-029.nse,smb-vuln-ms08-067.nse,smb-vuln-ms10-054.nse,smb-vuln-ms10-061.nse,smb-vuln-ms17-010.nse $Ip > SMB.txt
+    nmap -p 445 -vv -Pn --script=smb-os-discovery,smb-vuln-cve2009-3103.nse,smb-vuln-ms06-025.nse,smb-vuln-ms07-029.nse,smb-vuln-ms08-067.nse,smb-vuln-ms10-054.nse,smb-vuln-ms10-061.nse,smb-vuln-ms17-010.nse $IP > SMB.txt
 	echo -e "${CYAN}[+] SMB Recon Scan for $Name is complete${NC}!"
 	else
 	space
-	echo -e ${CYAN}"Okay, Lets Move On!"${NC}
+	echo -e "${CYAN}Okay, Lets Move On!${NC}"
 fi
 
 break
@@ -173,7 +173,7 @@ read ans
 	nmap --script ftp* $IP > ftp.txt
 	echo -e "${CYAN}[+] FTP Scan for $Name is complete${NC}!"
 	else
-	echo -e ${CYAN}"Okay, Lets Move On!"${NC}
+	echo -e "${CYAN}Okay, Lets Move On!${NC}"
 fi
 
 break
@@ -192,7 +192,7 @@ read ans
     nmap -p- --script=vuln,exploit -T4 -sC -Pn $IP > Goodies.txt
 	echo -e "${CYAN}[+] Exploits scan for $Name is finally complete!!!${NC}!"
 	else
-	echo -e ${CYAN}"Okay, Lets Move On!"${NC}
+	echo -e "${CYAN}Okay, Lets Move On!${NC}"
 fi
 
 break
@@ -207,7 +207,7 @@ read ans
     nmap -sS -sC -sV -O -A -r -T4 -p- -Pn $IP > BigScan.txt
 	echo -e "${CYAN}[+] Big Recon scan on $IP is complete${NC}!"
 	else
-	echo -e ${CYAN}"Okay, Lets Move On!"${NC}
+	echo -e "${CYAN}Okay, Lets Move On!${NC}"
 fi
 
 break
@@ -219,7 +219,7 @@ read resp
     if [[ $resp = Y ]] || [[ $resp = Yes ]] || [[ $resp = YES ]] || [[ $resp = yes ]] || [[ $resp = y ]]
 	then 
     space
-	echo -e ${CYAN}"Okay, lets continue then!"${NC}
+	echo -e "${CYAN}Okay, Lets Move On!${NC}"
 	else
     space
     echo -e ${CYAN}"End of OSCP Enumeration Script; thanks for using!"${NC}
