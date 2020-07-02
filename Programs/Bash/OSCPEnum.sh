@@ -87,7 +87,7 @@ break
 # In depth website crawler
 echo -e "${GREEN}Checking to see if $Name has a webserver.${NC}"
 space
-nmap -p80,8080,443 -sV -sC -Pn $IP > http.txt
+nmap -p- -sV -sC -Pn $IP > http.txt
 echo -e "${CYAN}[+] Website Recon on $Name Complete!!${NC}!"
 
 break
