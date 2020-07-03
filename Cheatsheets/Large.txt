@@ -263,6 +263,7 @@ SMB&NETBIOS
        • smbmap -H [ip] -d [domain] -u [user] -p [password]   -r --depth 5 -R
 
     Connect to share
+       •  smbclient -L $IP
        •  smbclient \\\\[ip]\\[share name]
 
     Netbios Information Scanning
@@ -273,6 +274,17 @@ SMB&NETBIOS
 
     Mount smb share:
        • mount -t cifs //<server ip>/<share> <local dir> -o username=”guest”,password=””
+       
+    Null Session/User Rpc login
+       •  rpcclient -U "" $ip
+             ▪ srvinfo 
+             ▪ enumdomusers
+             ▪ enumprivs
+             ▪ enumalsgroups domain 
+             ▪ lookupnames administrators
+             ▪ querydominfo 
+             ▪ enumdomusers 
+             ▪ queryuser john
 
 -------------------------------------------------------------------------------------------------------------------------------------
 
