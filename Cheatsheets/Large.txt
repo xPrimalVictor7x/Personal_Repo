@@ -65,6 +65,11 @@ FTP
 
     Deafult Creds
        • hydra -s 21 -C /usr/share/sparta/wordlists/ftp-default-userpass.txt  -u -f $ip ftp
+   
+    Manually Upload something to FTP 
+       • Look for backdoor uploads
+       • Check out MSVenom exploits and see if anything can be uploaded
+       
 
 -------------------------------------------------------------------------------------------------------------------------------------
 
@@ -111,7 +116,7 @@ MANUAL HTTP SCANS
     Check the source code
 
     Technologies used
-       •whatweb $ip:80 --color=never --log-brief="whattheweb.txt"
+       • whatweb $ip:80 --color=never --log-brief="whattheweb.txt"
 
     curl -s http://$ip/robots.txt
 
