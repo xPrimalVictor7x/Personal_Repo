@@ -24,7 +24,7 @@ PORT
 
 
     Vulnerability Scanning
-       •nmap -Pn -sT -sU  -p $ports --script=*vuln*  -vv -oN nmap_vuln  $ip 
+       • nmap -Pn -sT -sU  -p $ports --script=*vuln*  -vv -oN nmap_vuln  $ip 
 
     Banner Grabbing
        •  nc -nv $ip $port
@@ -56,12 +56,23 @@ DNS
 -------------------------------------------------------------------------------------------------------------------------------------
 
 
+SMTP 
+
+    Enumeration:
+       • nmap –script smtp-commands,smtp-enum-users,smtp-vuln-cve2010-4344,smtp-vuln-cve2011-1720,smtp-vuln-cve2011-1764 -p 25 10.0.0.1
+       • nc -nvv INSERTIPADDRESS 25
+       • telnet INSERTIPADDRESS 25
+
+
+-------------------------------------------------------------------------------------------------------------------------------------
+
+
 FTP
 
 
     Vulnerability Scanning
-        • nmap -p 21 --script="+*ftp* and not brute and not dos and not fuzzer"  -vv -oN ftp $ip
-
+        • nmap -p 21 --script="+*ftp* and not brute and not dos and not fuzzer"  -vv -oN ftp $IP
+        • nmap –script ftp-anon,ftp-bounce,ftp-libopie,ftp-proftpd-backdoor,ftp-vsftpd-backdoor,ftp-vuln-cve2010-4221,tftp-enum -p 21 $IP
 
     Deafult Creds
        • hydra -s 21 -C /usr/share/sparta/wordlists/ftp-default-userpass.txt  -u -f $ip ftp
