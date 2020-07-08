@@ -12,7 +12,7 @@ ENUMERATION
 
 -------------------------------------------------------------------------------------------------------------------------------------
 
-PORT
+PORT Scanning
 
     Port Scanning & Service Detection
         • unicornscan -mT -I 10.11.1.252:a -v 
@@ -250,12 +250,18 @@ NFS
 
 POP3
 
-
     Enumerating user accounts
         • nc -nv $ip 25
             • VRFY user
             • USER user
             • EXPN user
+
+         • telnet INSERTIPADDRESS 110
+            • USER [username]
+            • PASS [password]
+            • LIST (To list messages)
+            • RETR (X,Y,Z)
+            • QUIT
 
 
 -------------------------------------------------------------------------------------------------------------------------------------
@@ -483,6 +489,18 @@ PSSWD CRACKING
 -------------------------------------------------------------------------------------------------------------------------------------
 
 
+MOUNTING FILE SHARES
+
+    General:
+       • mount 192.168.1.1:/vol/share /mnt/nfs  -nolock
+       • mount -t cifs -o username=user,password=pass,domain=blah //192.168.1.X/share-name /mnt/cifs
+       • net use Z: \\win-server\share password  /user:domain\janedoe /savecred /p:no
+       • apt-get install smb4k –y
+
+
+-------------------------------------------------------------------------------------------------------------------------------------
+
+
 POST EXPLOITATION LINUX
 
     Add user with root privs:
@@ -650,6 +668,3 @@ PIVOTING
              ▪ socks4a module
                   → set srv port to ( no need to set host)
              ▪  set proxychains.conf to 127.0.0.1 1080
-
-
-
