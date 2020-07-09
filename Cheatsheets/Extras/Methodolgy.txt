@@ -1,0 +1,16 @@
+1) Open CherryTree template to take screenshots and paste outputs.
+2) Run simple nmap and then the slower.
+3) Check first results (webs, ssh, ftp) from the first fast nmap scan.
+4) Review slower nmap scan.
+    - Always go for the easiest port (SMB, FTP, HTTP...).
+    - Depend on each port do the appropiate enumeration techniches.
+4) Use most of your time to find exploits and try them.
+    - In case webpage is your target, look the source code, ever, will find software versions, for example.
+5) When you get the exploit and you have tweaked it for your target and purpose you should be inside as low user.
+6) Simple enumeration such as OS version, users, permissions, files in home, compilers, available tools.
+    - In case of Windows, with systeminfo is enough for me https://github.com/GDSSecurity/Windows-Exploit-Suggester
+7) Find out how to upload files.
+8) Upload your privilege escalation script.
+    - In case of Linux I always used LinEnum and linux-exploit-suggester
+    - Check services running and check the strange ones in gtfobins or lolbas and exploit-db
+9) Run your exploit and get root, collect proofs, passwords, review root paths and home paths for interesting files for other machines.

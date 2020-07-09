@@ -1,0 +1,10 @@
+						TOR
+service tor start
+service tor stop
+service tor status
+
+#after running
+
+proxychains firefox
+
+#for proxychains etc/proxychains.conf
