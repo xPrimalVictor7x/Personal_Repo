@@ -121,7 +121,7 @@ read ans
 	then
 	space
 	echo -e "${CYAN}Running Dirsearch against $Name...${NC}" 
-	python3 /opt/Scanning/dirsearch/dirsearch.py -u $IP -e php,html,js | tee dirsearch.txt	
+	python3 /opt/Web_Servers/dirsearch/dirsearch.py -u $IP -e php,html,js | tee dirsearch.txt	
 	echo -e "${CYAN}[+] Dirsearch on $Name is complete${NC}!"
 	else
 	space
