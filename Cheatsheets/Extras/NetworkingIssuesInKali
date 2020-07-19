@@ -1,0 +1,20 @@
+In case you lose your ipv6 or ipv4 or inet6 or inet4 in linux
+
+$ /etc/init.d/networking status
+		or
+$ systemctl status network
+
+
+$ /etc/init.d/networking stop
+		or
+$ systemctl stop network
+
+
+$ /etc/init.d/networking start
+		or
+$ systemctl start network
+
+
+$ /etc/init.d/networking restart
+		or
+$ systemctl restart network
