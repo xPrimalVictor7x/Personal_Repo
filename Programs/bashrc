@@ -1,0 +1,13 @@
+These are the contents within my bashrc
+
+    alias ls='ls --color=auto'
+    alias ENV='cd /root/TestENV && ls'
+    alias GIT="cd /root/OSCP-Github/ && ls"
+    alias pen="cd /root/Pentest_Files/ && ls"
+    alias updatesys='apt-get update && apt update'
+    alias connecthtb='openvpn /root/VPN/PrimalVictor7.ovpn'
+    alias connectthm='openvpn /root/VPN/xPrimalVictor7x.ovpn'
+    alias code="code --user-data-dir"
+    alias htb="cd /root/Pentest_Files/HTB && ls"
+    alias makexec="bash /root/OSCP-Github/Programs/Bash/exec.sh"
+    alias up="cd .."
