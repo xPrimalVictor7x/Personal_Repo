@@ -6,8 +6,12 @@ These are the contents within my bashrc
     alias pen="cd /root/Pentest_Files/ && ls"
     alias updatesys='apt-get update && apt update'
     alias connecthtb='openvpn /root/VPN/PrimalVictor7.ovpn'
-    alias connectthm='openvpn /root/VPN/xPrimalVictor7x.ovpn'
+    alias connectcybersec='openvpn /root/VPN/xPrimalVictor7x.ovpn'
     alias code="code --user-data-dir"
     alias htb="cd /root/Pentest_Files/HTB && ls"
     alias makexec="bash /root/OSCP-Github/Programs/Bash/exec.sh"
-    alias up="cd .."
+    alias execode="bash /root/OSCP-Github/Programs/Bash/exec.sh"
+    alias cls="clear && ls"
+    alias up="cd .. && ls"
+    alias cybersec="cd /root/Pentest_Files/CyberSecLabs/ && ls"
+    alias connectptd="openvpn /root/VPN/PwnTillDawn.ovpn"
