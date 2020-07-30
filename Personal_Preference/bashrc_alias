@@ -1,7 +1,7 @@
 These are the contents within my bashrc
 
     alias ls='ls --color=auto'
-    alias ENV='cd /root/TestENV && ls'
+    alias dev='cd /root/Development && ls'
     alias GIT="cd /root/OSCP-Github/ && ls"
     alias pen="cd /root/Pentest_Files/ && ls"
     alias updatesys='apt-get update && apt update'
@@ -15,3 +15,7 @@ These are the contents within my bashrc
     alias up="cd .. && ls"
     alias cybersec="cd /root/Pentest_Files/CyberSecLabs/ && ls"
     alias connectptd="openvpn /root/VPN/PwnTillDawn.ovpn"
+    alias connectthm="openvpn /root/VPN/xPrimalVictor7x.ovpn.ovpn"
+    alias smallcheat="cat /root/Cheatsheets/Small.txt"
+    alias webshells="cat /root/Cheatsheets/Web_Shells.txt"
+    alias nmapscripts="ls /usr/share/nmap/scripts"	

@@ -31,7 +31,7 @@ function space() {
 
 function break() {
 	echo 
-    echo -e "${BLUE}###################################################################################${NC}"
+    echo -e "${GREEN}###################################################################################${NC}"
 	echo 
 }
 
@@ -65,6 +65,7 @@ if [ $1 ];then
 	mkdir $dir_name
 	cd $dir_name/
 	touch $IP
+	touch services.txt 
 fi
 
 #######################################################################################################
@@ -78,11 +79,12 @@ ports=$(cat nmap_xml.txt | grep portid | grep protocol=\"tcp\" | cut -d'"' -f4 |
 echo
 echo -e "${CYAN}[+] Quick Scan Complete!!! $Name has these ports open: $ports${NC}"
 echo
-nmap -sC -sV -O -T4 -Pn -T4 -p$ports $IP | tee nmap_deepscan.txt
+nmap -sC -sV -O -T4 -Pn -T4 -A -p$ports $IP | tee nmap_deepscan.txt
 echo
 echo -e "${CYAN}[+] Deeper Scan on $Name Complete!!${NC}" 
 echo
-nmap $IP --script=vulners.nse,*vuln* | tee nmap_scripts_vulners.txt 
+nmap $IP --script=vulners.nse,*vuln* -T4 | tee nmap_scripts_vulners.txt 
+echo
 echo -e "${CYAN}[+] Conducted a Vulnerability Scan on $Name!!${NC}" 
 
 #######################################################################################################
@@ -96,13 +98,13 @@ echo
 if [ $singleport -eq 21 ];then
 	echo -e "${CYAN}FTP was Detected conducting Further Enumeration on $singleport.${NC}"
 		echo
-		nmap -p$singleport -Pn -sV --script=ftp* $IP | tee nmap_scripts_ftp.txt
+		nmap -p$singleport -Pn -sV -T4 --script=ftp-anon.nse,ftp-libopie.nse,ftp-proftpd-backdoor.nse,ftp-syst.nse,ftp-vsftpd-backdoor.nse,ftp-vuln-cve2010-4221.nse,tftp-enum.nse $IP | tee nmap_scripts_ftp.txt
 fi
 echo
 if [ $singleport -eq 22 ]; then
 	echo -e "${CYAN}Port 22 was Detected, Conducting Further Enumeration on SSH.${NC}"
     	echo
-		nmap -p$singleport -sV -A -Pn --script=ssh-auth-methods.nse,ssh-hostkey.nse,ssh-publickey-acceptance.nse,ssh-run.nse $IP | tee nmap_scripts_ssh.txt
+		nmap -p$singleport -sV -A -Pn -T4 --script=ssh-auth-methods.nse,ssh-hostkey.nse,ssh-publickey-acceptance.nse $IP | tee nmap_scripts_ssh.txt
 fi
 echo
 if [ $singleport -eq 80 ] || [ $singleport -eq 8080 ]; then
@@ -123,16 +125,16 @@ if [ $singleport -eq 80 ] || [ $singleport -eq 8080 ]; then
 	echo -e "${CYAN}Complete with Web Server Enumeration${NC}"
 fi
 echo
-if [ $singleport -eq 139 ] || [ $singleport -eq 445 ];then
+if [ $singleport -eq 139 ]; then
 	echo "SMB or NetBIOS was Detected, Conducting Further Enumeration"
-	nmap -Pn -p$singleport --script=*smb* $IP | tee nmap_vuln_smb.txt
+	nmap -Pn -p$singleport -vv --script=smb-os-discovery,smb-vuln-cve2009-3103.nse,smb-vuln-ms06-025.nse,smb-vuln-ms07-029.nse,smb-vuln-ms08-067.nse,smb-vuln-ms10-054.nse,smb-vuln-ms10-061.nse,smb-vuln-ms17-010.nse,smb-vuln-cve2009-3103.nse,smb-vuln-regsvc-dos.nse,smb-enum-shares.nse,smb-enum-users.nse $IP -T4 | tee nmap_scripts_smb.txt
 	enum4linux -a $IP | tee smb_enum4linux.txt
 	nmblookup -A $IP | tee smb_nmblookup.txt
 fi
 echo
 if [ $singleport -eq 3306 ];then
 	echo "${CYAN}Enumerating MYSQL on $Name.${NC}"
-	nmap -Pn -p$singleport --script=mysql-* $IP | tee nmap_scripts_mysql.txt
+	nmap -Pn -p$singleport --script=mysql-* $IP -T4 | tee nmap_scripts_mysql.txt
 fi
 
 #######################################################################################################
