@@ -35,6 +35,15 @@ function break() {
 	echo 
 }
 
+function nmap_deepscan() {
+	nmap -sC -sV -O -T4 -Pn -T4 -A -p$ports $IP > nmap_deepscan.txt
+}
+
+function nmap_vulners() {
+	nmap $IP --script=vulners.nse,*vuln* -T4 > nmap_scripts_vulners.txt	
+}
+
+
 #######################################################################################################
 #######################################################################################################
 ########################################### Script ####################################################
@@ -79,11 +88,11 @@ ports=$(cat nmap_xml.txt | grep portid | grep protocol=\"tcp\" | cut -d'"' -f4 |
 echo
 echo -e "${CYAN}[+] Quick Scan Complete!!! $Name has these ports open: $ports${NC}"
 echo
-nmap -sC -sV -O -T4 -Pn -T4 -A -p$ports $IP | tee nmap_deepscan.txt
+nmap_deepscan
 echo
 echo -e "${CYAN}[+] Deeper Scan on $Name Complete!!${NC}" 
 echo
-nmap $IP --script=vulners.nse,*vuln* -T4 | tee nmap_scripts_vulners.txt 
+nmap_vulners
 echo
 echo -e "${CYAN}[+] Conducted a Vulnerability Scan on $Name!!${NC}" 
 
@@ -98,7 +107,7 @@ echo
 if [ $singleport -eq 21 ];then
 	echo -e "${CYAN}FTP was Detected conducting Further Enumeration on $singleport.${NC}"
 		echo
-		nmap -p$singleport -Pn -sV -T4 --script=ftp-anon.nse,ftp-libopie.nse,ftp-proftpd-backdoor.nse,ftp-syst.nse,ftp-vsftpd-backdoor.nse,ftp-vuln-cve2010-4221.nse,tftp-enum.nse $IP | tee nmap_scripts_ftp.txt
+		nmap -p$singleport -Pn -sV -T4 --script=ftp-anon.nse,ftp-libopie.nse,ftp-proftpd-backdoor.nse,ftp-syst.nse,ftp-vsftpd-backdoor.nse,ftp-vuln-cve2010-4221.nse,tftp-enum.nse $IP > nmap_scripts_ftp.txt
 fi
 echo
 if [ $singleport -eq 22 ]; then
