@@ -1,24 +1,113 @@
-These are the contents within my bashrc
+export PS1="\[\033[38;5;244m\]\h\[$(tput sgr0)\]:\[$(tput sgr0)\]\[\033[38;5;244m\]\w\[$(tput sgr0)\]:\[$(tput sgr0)\]"
+#go to http://bashrcgenerator.com/
 
-    alias ls='ls --color=auto'
-    alias dev='cd /root/Development && ls'
-    alias GIT="cd /root/OSCP-Github/ && ls"
-    alias pen="cd /root/Pentest_Files/ && ls"
-    alias updatesys='apt-get update && apt update'
-    alias connecthtb='openvpn /root/VPN/PrimalVictor7.ovpn'
-    alias connectcybersec='openvpn /root/VPN/xPrimalVictor7x.ovpn'
-    alias code="code --user-data-dir"
-    alias htb="cd /root/Pentest_Files/HTB && ls"
-    alias makexec="bash /root/OSCP-Github/Programs/Bash/Functions/exec.sh"
-    alias execode="bash /root/OSCP-Github/Programs/Bash/Functions/exec.sh"
-    alias cls="clear && ls"
-    alias up="cd .. && ls"
-    alias cybersec="cd /root/Pentest_Files/CyberSecLabs/ && ls"
-    alias connectptd="openvpn /root/VPN/PwnTillDawn.ovpn"
-    alias connectthm="openvpn /root/VPN/xPrimalVictor7x.ovpn.ovpn"
-    alias smallcheat="cat /root/Cheatsheets/Small.txt"
-    alias webshells="cat /root/Cheatsheets/Web_Shells.txt"
-    alias nmapscripts="ls /usr/share/nmap/scripts"
-    alias extractports="bash /root/OSCP-Github/Programs/Bash/Functions/Extract_NMAP_Ports.sh"
-    alias destroy="bash /root//OSCP-Github/Programs/Bash/Functions/OSCPEnum.sh"
-    alias enum="bash /root//OSCP-Github/Programs/Bash/Functions/OSCPEnum.sh"
+#Bash Aliases 
+#VPN
+alias connectcybersec='openvpn ~/VPN/xPrimalVictor7x.ovpn'
+alias connectoscp='openvpn ~/VPN/vpn_config.ovpn'
+alias connectptd='openvpn ~/VPN/PwnTillDawn.ovpn'
+alias oscpcreds='cat /root/VPN/OSCP_CREDS'
+alias connecthtb='openvpn ~/VPN/PrimalVictor7.ovpn'
+#Listing
+alias l='ls $LS_COLORS -lA'
+alias la='ls -la'
+alias lin='cd /root/Pentest_Files/Linux && l'
+alias ll='tree'
+alias ls='ls $LS_COLORS'
+#Actions
+alias me='bash ~/Programs/Bash/Functions/exec.sh'
+alias dirsearch='python3 /opt/Web_Servers/dirsearch/dirsearch.py'
+alias extractports='bash /root/OSCP-Github/Programs/Bash/Functions/Extract_NMAP_Ports.sh'
+alias quickscan='bash ~/OSCP-Github/Programs/Bash/Functions/quickscan.sh'
+alias webserver='python3 -m http.server'
+alias enum='bash /root//OSCP-Github/Programs/Bash/Functions/recon.sh'
+alias code='code --user-data-dir'
+alias ping.sweep='bash ~/Programs/Bash/Functions/pingsweep.sh'
+alias ..='cd .. && ls'
+#Move to
+alias dev='cd ~/Development && ls'
+alias provinggrounds='cd ~/Pentest_Files/ProvingGrounds'
+alias pen='cd /root/Pentest_Files/ && ls'
+alias up='cd .. && ls'
+alias cyberseclabs='cd ~/Pentest_Files/CyberSecLabs && ls'
+alias htb='cd ~/Pentest_Files/HTB && ls'
+alias oscp='cd ~/Pentest_Files/ProvingGrounds && ls'
+alias vuln='cd ~/Pentest_Files/VulnHub && ls'
+alias opt='cd /opt && ls'
+alias privesc='cd /opt/PrivEsc && ls'
+alias programs='cd ~/Programs && ls'
+alias functions='cd ~/Programs/Bash/Functions && ls'
+alias vpn='cd ~/VPN/'
+#extras
+alias bashrc='subl ~/.bashrc'
+alias cls='clear'
+alias bashrc='subl ~/.bashrc'
+alias open='xdg-open'
+alias updatesys='apt-get update && apt update'
+alias wlan0='ifconfig wlan0 | grep "inet"'
+alias eth0='ifconfig eth0 | grep "inet"'
+alias eth1='ifconfig eth1 | grep "inet"'
+alias tun0='ifconfig tun0 | grep "inet"'
+alias docker0='ifconfig docker0 | grep "inet"'
+#Cheatsheets
+alias webshells='cat ~/Cheatsheets/Web_Shells.txt'
+alias smallcheat='cat /root/Cheatsheets/Small.txt'
+alias ttycheat='cat ~/Cheatsheets/tty'
+alias nmapscripts='ls /usr/share/nmap/scripts'
+#typos
+alias c='clear'
+alias cl='clear'
+alias vulnhub='cd ~/Pentest_Files/VulnHub && ls'
+
+#Imports color (see next comment to test)
+alias ls='ls --color'
+alias l='ls -la --color'
+LS_COLORS='di=36:fi=93:ln=36:pi=93:so=93:bd=93:cd=93:or=93:mi=0:ex=32:*.rpm=90'
+export LS_COLORS
+
+### How to set up the numbers and letters in the above Import 
+# 0   = default colour
+# 1   = bold
+# 4   = underlined
+# 5   = flashing text
+# 7   = reverse field
+# 31  = red
+# 32  = green
+# 33  = orange
+# 34  = blue
+# 35  = purple
+# 36  = cyan
+# 37  = grey
+# 40  = black background
+# 41  = red background
+# 42  = green background
+# 43  = orange background
+# 44  = blue background
+# 45  = purple background
+# 46  = cyan background
+# 47  = grey background
+# 90  = dark grey
+# 91  = light red
+# 92  = light green
+# 93  = yellow
+# 94  = light blue
+# 95  = light purple
+# 96  = turquoise
+# 100 = dark grey background
+# 101 = light red background
+# 102 = light green background
+# 103 = yellow background
+# 104 = light blue background
+# 105 = light purple background
+# 106 = turquoise background
+###################################
+# di = directory
+# fi = file
+# ln = symbolic link
+# pi = fifo file
+# so = socket file
+# bd = block (buffered) special file
+# cd = character (unbuffered) special file
+# or = symbolic link pointing to a non-existent file (orphan)
+# mi = non-existent file pointed to by a symbolic link (visible when you type ls -l)
+# ex = file which is executable (ie. has 'x' set in permissions).
