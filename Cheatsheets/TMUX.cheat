@@ -1,0 +1,43 @@
+			TMUX
+Opens the terminal multiplexer
+	$ tmux
+
+Start tmux with a session name
+	$ tmux new -s myname
+
+Attach to tmux session
+	$ tmux a  #  (or at, or attach)
+
+Attach to named session 
+	$ tmux a -t myname
+
+List tmux sessions 
+	$ tmux ls
+
+Kill tmux session
+	$ tmux kill-session -t myname
+
+			CTRL+B
+Windows (tabs)			
+	c           new window
+	,           name window
+	w           list windows
+	f           find window
+	&           kill window
+	.           move window - prompted for a new number
+	:movew<CR>  move window to the next unused number
+
+Panes/Splits
+	%  horizontal split
+	"  vertical split
+	o  swap panes
+	q  show pane numbers
+	x  kill pane
+	⍽  space - toggle between layouts
+
+Misc:
+	d  detach
+	t  big clock
+	?  list shortcuts
+	:  prompt
+

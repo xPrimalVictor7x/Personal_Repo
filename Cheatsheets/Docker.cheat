@@ -1,0 +1,54 @@
+
+Docker Installation
+	kali@kali:~$ sudo apt update
+	kali@kali:~$ sudo apt install -y docker.io
+	kali@kali:~$ sudo systemctl enable docker --now
+	kali@kali:~$ docker
+	kali@kali:~$ sudo usermod -aG docker $USER
+
+See All Docker Images
+	kali@kali:~$ docker images 
+	# this shows the type of images installed in docker. Images can be installed from docker hub
+
+Remove Docker Images
+	kali@kali:~$ docker image rm -f <image name>
+	# removes the image forcably
+
+Docker Processes
+	kali@kali:~$ docker ps -a
+	# lists all the processes on docker see below to empty/kill processes
+
+Remoce Docker Processes
+	kali@kali:~$ docker rm <image id>
+	# clears/removes processes within docker
+
+Start Docker Image
+	kali@kali:~$ docker run --name <any name, will show up in the ps -a> -it(interactive terminal) <name of image(full name)> <shell wanted>
+	example: kali@kali:~$ docker run --name firstboxondocker -it ubuntu:18.04 /bin/bash
+	# to exit the image, just type "exit"
+
+Stop/Exit Docker Image
+	# When stopping/exiting an image
+	docker@someimage:~$ exit
+	kali@kali:~$ docker stop <container id>
+	kali@kali:~$ docker rm <container id>
+
+Re-enter Previously Used Docker Images 
+	# Go back into a previous used docker container
+	kali@kali:~$ docker -ps a 
+	# confirm the container is still there 
+	kali@kali:~$ docker container start <container id>
+	kali@kali:~$ docker -ps a
+	# confirm the container is "active" 
+  	kali@kali:~$ docker attach <container id>
+
+Start/Enter a Docker Web Application
+  	# best way to start an application container: --rm removes everything upon exiting. -p sets up local port to virtual port #only do this with web/mobile apps
+  	kali@kali:~$ docker run --rm -p 3000:3000 bkimminich/juice-shop
+
+#####This is the start up for the boxes#####
+docker run -p 8080:8080 -t webgoat/webgoat-8.0
+docker run -d -p 8080:8080 citizenstig/dvwa
+docker run -d -p 3000:3000 bkimminich/juice-shop
+docker run -d -p 80:80 raesene/bwapp
+docker run --name <container-name> -it metasploitframework/metasploit-framework sh -c "/bin/services.sh && bash"

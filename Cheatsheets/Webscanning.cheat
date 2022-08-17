@@ -1,0 +1,32 @@
+#Gobuster 
+gobuster dir -u 10.10.10.10 -w /usr/share/seclists/Discovery/Web_Content/common.txt -t 80 -a Linux
+
+#dirsearch
+dirsearch -u <URL> -e <extensions> 
+
+#Nikto web server scan
+nikto -C all -h 10.10.10.10 -p 80
+
+#Wordpress scan
+wpscan --url <hostname or domain name>
+
+#ffuf
+ffuf -w /usr/share/wordlists/dirbuster/directory-list-2.3-small.txt -u http://<IP>/FUZZ
+
+#curl whole website
+curl http://
+
+#Curl ONLY HEADER
+curl -I http://
+
+#Netcat
+nc <IP or Host name> <port>
+
+#dirb
+dirb http://<IP>/<directory (OPTIONAL)>
+
+#Dirbuster has a GUI 
+dirbuster
+
+#CMSmap
+cmsmap http://<IP>:<port>/<directory (OPTIONAL) -F -v 
